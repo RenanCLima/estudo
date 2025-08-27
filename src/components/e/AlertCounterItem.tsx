@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function CounterItem() {
+export default function AlertCounterItem() {
   const [count, setCount] = useState(0);
 
   const increment = () => {
@@ -12,6 +12,17 @@ export default function CounterItem() {
   const decrement = () => {
     setCount(count - 1);
   };
+
+  useEffect(() => {
+    const alertPoints = [-10, -5, 5, 10];
+
+    if (alertPoints.includes(count)) {
+      alert(`The counter arrived in: ${count}`);
+    }
+    if (count == 42) {
+      alert(`You are a galaxy hitchhiker!`);
+    }
+  }, [count]);
 
   return (
     <div>

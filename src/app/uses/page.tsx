@@ -1,12 +1,18 @@
+import AlertCounterItem from "@/components/e/AlertCounterItem";
+import CardCleanupItem from "@/components/e/CardCleanupItem";
+import CardDeepUseEffect from "@/components/e/CardDeepUseEffect";
 import CardDeepUseState from "@/components/e/CardDeepUseState";
+import CardExampleUseEffect from "@/components/e/CardExampleUseEffect";
 import CardFinalUseState from "@/components/e/CardFinalUseState";
+import CardUseEffect from "@/components/e/CardUseEffect";
 import CardUseState from "@/components/e/CardUseState";
+import CleanupItem from "@/components/e/CleanupItem";
 import CounterItem from "@/components/e/CounterItem";
 
 export default function UsesPage() {
   return (
-    <div className="flex flex-col lg:flex-row justify-between gap-10">
-      <div className="flex flex-col px-5 w-full lg:w-1/2">
+    <div className="flex flex-col lg:flex-row justify-between gap-5">
+      <section className="flex flex-col px-5 w-full lg:w-1/2">
         <h2 className="flex justify-center text-2xl font-semibold">
           useState()
         </h2>
@@ -59,7 +65,7 @@ export default function UsesPage() {
             array.
           </li>
         </ul>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <CardUseState />
           <CounterItem />
         </div>
@@ -67,7 +73,6 @@ export default function UsesPage() {
           Note: {`"use client"`} is required in Next.js for components that run
           on the client side (e.g. those using hooks like useState)
         </p>
-
         <h3 className="text-xl mt-4">Deep dive: the function signature</h3>
         <p className="leading-7 mt-2">
           Basically,{" "}
@@ -126,25 +131,84 @@ export default function UsesPage() {
           next state from the previous one.
         </p>
         <CardFinalUseState />
-      </div>
+      </section>
       {/* Start useEffect*/}
-      <div className="flex flex-col px-5 w-full lg:w-1/2">
+      <section className="flex flex-col px-5 w-full lg:w-1/2">
         <h2 className="flex justify-center text-2xl font-semibold">
           useEffect()
         </h2>
         <p className="leading-7 mt-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil quas
-          sunt asperiores itaque rerum, eius vero, omnis in pariatur, earum
-          minus aliquam ipsa nisi suscipit molestiae soluta. Ipsam, cum id!
+          The useEffect hook in React is used to handle{" "}
+          <span className="italic">side effect </span>
+          in functional components. A side effect is anything that happens
+          outside the normal rendering flow (Ex: data fetching, DOM
+          manipulation, timers, event listeners, etc.)
         </p>
-        <h3 className="text-xl mt-4">Lorem, ipsum dolor.</h3>
+        <h3 className="text-xl mt-4">How it Works:</h3>
         <p className="leading-7 mt-3">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum cum
-          dolor ipsam nobis fugit, doloremque sit praesentium. Iure, quis? Earum
-          fuga asperiores aliquam odit, harum excepturi ipsum temporibus rem
-          quos.
+          <span className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+            useEffect
+          </span>{" "}
+          is a function that needs two parameters. The first parameter is the{" "}
+          <span className="italic">effect function</span>, which contains the
+          code you want to run. The second parameter is the{" "}
+          <span className="italic">dependency array</span>, which defines when
+          the effect should re-run.{" "}
         </p>
-      </div>
+        <CardExampleUseEffect />
+        <p className="leading-7 mt-3">
+          useEffect behaves differently depending on its dependency array.
+        </p>
+        <ul className="my-2 ml-6 list-disc [&>li]:mt-2">
+          <li>
+            Without dependencies:{" "}
+            <span className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+              {`useEffect(() => { ... })`}
+            </span>
+            runs every time the component renders
+          </li>
+          <li>
+            With empty dependencies:
+            <span className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+              {`useEffect(() => { ... }, [])`}
+            </span>
+            runs only once (when the component mounts)
+          </li>
+          <li>
+            With dependencies:
+            <span className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+              {`useEffect(() => { ... }, [variable])`}
+            </span>
+            runs whenever the variable changes
+          </li>
+        </ul>
+        <div className="flex flex-wrap gap-3">
+          <CardUseEffect />
+          <AlertCounterItem />
+        </div>
+        <h3 className="text-xl mt-4">Deep dive: the function signature</h3>
+        <p className="leading-7 mt-2">
+          Basically,{" "}
+          <span className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+            useEffect
+          </span>{" "}
+          is a function (a React Hook) that receives an effect based on a
+          dependency
+        </p>
+        <CardDeepUseEffect />
+        <p className="leading-7 mt-2">
+          <span className="font-semibold">Cleanup Function</span>: The effect
+          function can optionally return a cleanup function. This function runs
+          before the effect re-runs (if dependencies change) and when the
+          component unmounts. It&apos;s crucial for releasing resources like
+          clearing timers, unsubscribing from events, or canceling network
+          requests to prevent memory leaks.
+        </p>
+        <div className="flex flex-wrap gap-3 mb-3">
+          <CardCleanupItem />
+          <CleanupItem />
+        </div>
+      </section>
     </div>
   );
 }
