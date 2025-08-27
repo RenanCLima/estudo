@@ -13,7 +13,7 @@ export default function Home() {
       <div>
         <AccordionFirstPageIntroduction />
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap gap-2 justify-center">
         <CardChildrenReactNode />
         <CardUseStateUseEffect />
         <CardTemplate />
